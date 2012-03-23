@@ -1,0 +1,19 @@
+Gread Flash Component Library
+Note: This is just for the sake of building something of my own making.
+Used for prototyping and shits and giggles
+- I am using the Robert Penner's Signals library ... 
+Since this is an open repsitory... This should be ok and cool to do.
+
+Helper utilities
+DisplayObjectHelper - basic static methods for the DisplayObject
+HelperUtil - Abstraction for the core library ... make it easier to create
+
+Component
+Graphic
+	BoxGraphic
+	LineGraphic
+
+Components
+	Button Component
+	
+More to come
