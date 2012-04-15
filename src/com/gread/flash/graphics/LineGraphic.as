@@ -1,69 +1,1 @@
-﻿package com.gread.flash.graphics
-{
-   import flash.display.DisplayObject;
-   import flash.display.DisplayObjectContainer;
-   import flash.display.Sprite;
-   
-   public class LineGraphic extends GraphicCreator implements IGraphic
-   {
-	  protected var _element:Sprite;
-	   
-      public function LineGraphic(parent:DisplayObjectContainer, xVal:Number=0, 
-									   yVal:Number=0, widthVal:Number=0, 
-									   heightVal:Number=0, alphaVal:Number=1, 
-									   colorVal:uint=0x000000, rotationVal:Number=0) {
-         _element = new Sprite();
-         
-		 super(parent, xVal, yVal, widthVal, heightVal, alphaVal, colorVal, rotationVal);
-
-      }
-	  
-	  public function get element() : Sprite {
-         return _element;
-      }
-	  
-      public function set x(value:Number) : void {
-         this.element.x = value;
-      }
-      public function set y(value:Number) : void {
-         this.element.y = value;
-      }
-	  
-      public function set width(value:Number) : void {
-         this._width = value;
-      }
-	  
-      public function set height(value:Number) : void {
-         this._height = value;
-      }
-	  
-      public function set color(value:uint) : void {
-         this._color = value;
-      }
-	  
-      public function changeRotation(value:Number) : void {
-         this.element.rotation = value;
-      }
-	  
-      public function move(xVal:Number, yVal:Number) : void {
-         this.element.x = xVal;
-         this.element.y = yVal;
-      }
-	  
-      override protected function factoryMethod() : IGraphic {
-         _element = new Sprite();
-         createInstance();
-		 
-		 return this;
-      }
-	  
-      private function createInstance() : void {
-         _element.graphics.lineStyle(this._width,this._color,this._alpha);
-         _element.graphics.moveTo(0,0);
-         _element.graphics.lineTo(this._height,0);
-         _element.x = this._x;
-         _element.y = this._y;
-         _element.rotation = this._rotation;
-      }
-   }
-}
+﻿package com.gread.flash.graphics{	/*		Class LineGraphic		Note: This class inherits from GraphicCreator - Factory based Pattern		- width is thickness		- height is length				example:		var line:LineGraphic = new LineGraphic(parent, 10, 10, 1, 100, 1, 0x000, 90);		line.create();	*/   import flash.display.DisplayObject;   import flash.display.DisplayObjectContainer;   import flash.display.Sprite;   import com.gread.flash.components.IComponent;   import com.gread.flash.IDisplayElement;      public class LineGraphic extends GraphicCreator implements IGraphic, IDisplayElement   {	  protected var _element:Sprite;	         public function LineGraphic(parent:DisplayObjectContainer, xVal:Number=0, 									   yVal:Number=0, widthVal:Number=0, 									   heightVal:Number=0, alphaVal:Number=1, 									   colorVal:uint=0x000000, rotationVal:Number=0) {         _element = new Sprite();         		 super(parent, xVal, yVal, widthVal, heightVal, alphaVal, colorVal, rotationVal);      }	  	  public function get element() : Sprite {         return _element;      }	        public function set x(value:Number) : void {         _element.x = value;      }	  	  public function get x() : Number {         return _element.x;      }	        public function set y(value:Number) : void {         _element.y = value;      }	  	  public function get y() : Number {         return _element.y;      }	        public function set width(value:Number) : void {         _width = value;      }	  	  public function get width() : Number {         return _width;      }	        public function set height(value:Number) : void {         _height = value;      }	  	  public function get height() : Number {         return _height;      }	  	  public function set alpha(value:Number) : void {		  _element.alpha = value;	  }	  	  public function get alpha() : Number {		  return _element.alpha;	  }	        public function set color(value:uint) : void {         _color = value;      }	        public function changeRotation(value:Number) : void {         _element.rotation = value;      }	        public function move(xVal:Number, yVal:Number) : void {         _element.x = xVal;         _element.y = yVal;      }	        override protected function factoryMethod() : IGraphic {         _element = new Sprite();         createInstance();		 		 return this;      }	        private function createInstance() : void {         _element.graphics.lineStyle(this._width,this._color,this._alpha);         _element.graphics.moveTo(0,0);         _element.graphics.lineTo(this._height,0);         _element.x = this._x;         _element.y = this._y;         _element.rotation = this._rotation;      }   }}

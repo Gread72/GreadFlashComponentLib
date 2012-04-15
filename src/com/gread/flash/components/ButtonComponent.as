@@ -1,93 +1,1 @@
-﻿package com.gread.flash.components
-{
-   import com.gread.flash.components.ButtonComponentState;
-   import com.gread.flash.components.ComponentCreator;
-   import com.gread.flash.components.IComponent;
-   
-   import flash.display.DisplayObject;
-   import flash.display.DisplayObjectContainer;
-   import flash.display.SimpleButton;
-   import flash.text.TextFormat;
-
-   public class ButtonComponent extends ComponentCreator implements IComponent
-   {
-	  protected var _element:SimpleButton;
-	  protected var _textFormat:TextFormat;
-	  
-      public function ButtonComponent(parent:DisplayObjectContainer, xVal:Number=0, 
-									   yVal:Number=0, widthVal:Number=0, 
-									   heightVal:Number=0, textVal:String="", textFormat:TextFormat = null) {
-      	super(parent,xVal,yVal,widthVal,heightVal,textVal);
-		 
-		if(!textFormat){
-			_textFormat = new TextFormat("Verdana",12);
-		}
-		
-		
-      }
-	  
-	  public function get element() : DisplayObject {
-         return _element as DisplayObject;
-      }
-      
-	  public function set text(value:String) : void {
-         _text = value;
-		 
-		 if(_element.upState){
-			 ButtonComponentState(_element.upState).setText(_text);
-		 }
-		 
-		 if(_element.downState){
-			 ButtonComponentState(_element.downState).setText(_text);
-		 }
-		 
-		 if(_element.overState){
-		 	ButtonComponentState(_element.overState).setText(_text);
-		 }
-      }
-      
-	  public function get text() : String {
-         return _text;
-      }
-	  
-      public function set x(value:Number) : void {
-         _element.x = value;
-      }
-	  
-      public function set y(value:Number) : void {
-         _element.y = value;
-      }
-      
-	  public function set width(value:Number) : void {
-         return;
-      }
-	  
-      public function set height(value:Number) : void {
-         return;
-      }
-      
-	  public function move(xVal:Number, yVal:Number) : void {
-         _element.x = xVal;
-         _element.y = yVal;
-      }
-      
-	  public function set textFormat(value:TextFormat) : void {
-         _textFormat = value;
-      }
-	  
-      override protected function factoryMethod() : IComponent {
-         _element = new SimpleButton();
-         createInstance();
-         return this;
-      }
-	  
-      private function createInstance() : void {
-         _element.upState = new ButtonComponentState(0xffffff, _text, _textFormat, _width, _height);
-         _element.downState = new ButtonComponentState(0xcccccc, _text, _textFormat, _width, _height);
-         _element.overState = new ButtonComponentState(0xbbbbbb, _text, _textFormat, _width, _height);
-         _element.hitTestState = _element.upState;
-         _element.x = _x;
-         _element.y = _y;
-      }
-   }
-}
+﻿package com.gread.flash.components{	/*		Class ButtonComponent - Button Component		Note: This class inherits from ComponentCreator - Factory based Pattern		- You can either pass ButtonComponentStates or use the default button states		- You can pass a text format or use the default 				example:		var button:ButtonComponent = new ButtonComponent(parent, x, y, width, height, "My Button");		button.textFormat = new TextFormat("Times",16);		button.create();	*/   import com.gread.flash.components.ButtonComponentState;   import com.gread.flash.components.ComponentCreator;   import com.gread.flash.components.IComponent;   import com.gread.flash.IDisplayElement;      import flash.display.DisplayObject;   import flash.display.DisplayObjectContainer;   import flash.display.SimpleButton;   import flash.text.TextFormat;      public class ButtonComponent extends ComponentCreator implements IComponent, IDisplayElement   {	  protected var _element:SimpleButton;	  protected var _textFormat:TextFormat;	  protected var _elementUpState:ButtonComponentState;	  protected var _elementDownState:ButtonComponentState;	  protected var _elementOverState:ButtonComponentState;	        public function ButtonComponent(parent:DisplayObjectContainer, xVal:Number=0, 									   yVal:Number=0, widthVal:Number=0, 									   heightVal:Number=0, textVal:String="", textFormat:TextFormat = null) {      	super(parent,xVal,yVal,widthVal,heightVal,textVal);		 		if(!textFormat){			_textFormat = new TextFormat("Verdana",12);		}		      }	  	  public function get element() : DisplayObject {         return _element as DisplayObject;      }      	  public function set text(value:String) : void {         _text = value;		 		 if(_element.upState){			 ButtonComponentState(_element.upState).setText(_text);		 }		 		 if(_element.downState){			 ButtonComponentState(_element.downState).setText(_text);		 }		 		 if(_element.overState){		 	ButtonComponentState(_element.overState).setText(_text);		 }      }      	  public function get text() : String {         return _text;      }	        public function set x(value:Number) : void {         _element.x = value;      }	  	  public function get x() : Number {         return _element.x;      }	        public function set y(value:Number) : void {         _element.y = value;      }	  	  public function get y() : Number {         return _element.y;      }      	  public function set width(value:Number) : void {         return;      }	  	  public function get width() : Number {         return _width;      }	        public function set height(value:Number) : void {         return;      }	  	  public function get height() : Number {         return _height;      }	  	  public function set alpha(value:Number) : void {		  _element.alpha = value;	  }	  	  public function get alpha() : Number {		  return _element.alpha;	  }      	  public function move(xVal:Number, yVal:Number) : void {         _element.x = xVal;         _element.y = yVal;      }      	  public function set textFormat(value:TextFormat) : void {         _textFormat = value;      }	  	  public function set upButtonState(value:ButtonComponentState):void{		  _elementUpState = value;	  }	  	  public function set downButtonState(value:ButtonComponentState):void{		  _elementDownState = value;	  }	  	  public function set overButtonState(value:ButtonComponentState):void{		  _elementOverState = value;	  }	        override protected function factoryMethod() : IComponent {         _element = new SimpleButton();         createInstance();         return this;      }	        private function createInstance() : void {		  if(_elementUpState == null){			  _element.upState = new ButtonComponentState(0xffffff, _text, _textFormat, _width, _height);		  }else{			  _element.upState = _elementUpState;		  }          		  if(_elementDownState == null){			  _element.downState = new ButtonComponentState(0xcccccc, _text, _textFormat, _width, _height);		  }else{			  _element.downState = _elementDownState;		  }		            if(_elementOverState == null){			  _element.overState = new ButtonComponentState(0xbbbbbb, _text, _textFormat, _width, _height);		  }else{			  _element.overState = _elementOverState;		  }                  _element.hitTestState = _element.upState;         _element.x = _x;         _element.y = _y;      }   }}
