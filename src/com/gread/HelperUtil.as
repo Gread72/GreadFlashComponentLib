@@ -30,12 +30,11 @@
       
 	  public static function createButton( parent:DisplayObjectContainer, xVal:Number, yVal:Number, textVal:String) : ButtonComponent {
           var button:ButtonComponent = new ButtonComponent(parent,xVal,yVal,200,30);
-          button.text = textVal;
+		  button.create();
+		  button.text = textVal;
+		  button.textFormat = new TextFormat("Times",16);
          
-		 button.textFormat = new TextFormat("Times",16);
-		 button.create();
-         
-		 return button;
+		  return button;
       }
 	  
 	  public static function CreateRectagleGraphic(parentObj:DisplayObjectContainer = null, xVal:Number=0, yVal:Number=0, widthVal:Number=0, 
